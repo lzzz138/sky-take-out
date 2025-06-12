@@ -12,6 +12,7 @@ public interface EmployeeMapper {
 
     /**
      * 根据用户名查询员工
+     *
      * @param username
      * @return
      */
@@ -39,4 +40,20 @@ public interface EmployeeMapper {
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
 
+    /**
+     * 修改禁用员工状态
+     * @param employee
+     */
+    void startOrStop(Employee employee);
+
+
+
+    /**
+     * 查询员工
+     * @param id
+     * @return
+     */
+    @Select("select *from employee where id = #{id}")
+    Employee getById(Long id);
 }
+

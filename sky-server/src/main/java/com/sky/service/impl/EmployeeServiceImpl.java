@@ -114,4 +114,46 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     }
+
+    /**
+     * 修改禁用员工状态
+     * @param status
+     * @param id
+     */
+    public void startOrStop(Integer status, Long id){
+        Employee employee = new Employee();
+        employee.setStatus(status);
+        employee.setId(id);
+
+        employeeMapper.startOrStop(employee);
+    }
+
+
+    /**
+     * 查询员工
+     * @param id
+     * @return
+     */
+    public Employee getById(Long id){
+
+        Employee employee = employeeMapper.getById(id);
+
+        return employee;
+    }
+
+
+    /**
+     * 修改员工信息
+     * @param employeeDTO
+     * @return
+     */
+    public void update(EmployeeDTO employeeDTO){
+        Employee employee = new Employee();
+        //复制对象同名属性信息
+        BeanUtils.copyProperties(employeeDTO,employee);
+
+        employeeMapper.startOrStop(employee);
+
+
+    }
 }
