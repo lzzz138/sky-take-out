@@ -1,43 +1,114 @@
 package com.sky.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class Category implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+public class Category {
     private Long id;
 
-    //类型: 1菜品分类 2套餐分类
     private Integer type;
 
-    //分类名称
     private String name;
 
-    //顺序
     private Integer sort;
 
-    //分类状态 0标识禁用 1表示启用
     private Integer status;
 
-    //创建时间
-    private LocalDateTime createTime;
+    private Date createTime;
 
-    //更新时间
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
-    //创建人
     private Long createUser;
 
-    //修改人
     private Long updateUser;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Long getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(Long createUser) {
+        this.createUser = createUser;
+    }
+
+    public Long getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(Long updateUser) {
+        this.updateUser = updateUser;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", type=").append(type);
+        sb.append(", name=").append(name);
+        sb.append(", sort=").append(sort);
+        sb.append(", status=").append(status);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", updateTime=").append(updateTime);
+        sb.append(", createUser=").append(createUser);
+        sb.append(", updateUser=").append(updateUser);
+        sb.append("]");
+        return sb.toString();
+    }
 }

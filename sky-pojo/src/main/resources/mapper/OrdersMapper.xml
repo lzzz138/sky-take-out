@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sky.mapper.OrdersMapper">
+  <resultMap id="BaseResultMap" type="com.sky.entity.Orders">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="address_book_id" jdbcType="BIGINT" property="addressBookId" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="checkout_time" jdbcType="TIMESTAMP" property="checkoutTime" />
+    <result column="pay_method" jdbcType="INTEGER" property="payMethod" />
+    <result column="pay_status" jdbcType="TINYINT" property="payStatus" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="consignee" jdbcType="VARCHAR" property="consignee" />
+    <result column="cancel_reason" jdbcType="VARCHAR" property="cancelReason" />
+    <result column="rejection_reason" jdbcType="VARCHAR" property="rejectionReason" />
+    <result column="cancel_time" jdbcType="TIMESTAMP" property="cancelTime" />
+    <result column="estimated_delivery_time" jdbcType="TIMESTAMP" property="estimatedDeliveryTime" />
+    <result column="delivery_status" jdbcType="BIT" property="deliveryStatus" />
+    <result column="delivery_time" jdbcType="TIMESTAMP" property="deliveryTime" />
+    <result column="pack_amount" jdbcType="INTEGER" property="packAmount" />
+    <result column="tableware_number" jdbcType="INTEGER" property="tablewareNumber" />
+    <result column="tableware_status" jdbcType="BIT" property="tablewareStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, `number`, `status`, user_id, address_book_id, order_time, checkout_time, pay_method, 
+    pay_status, amount, remark, phone, address, user_name, consignee, cancel_reason, 
+    rejection_reason, cancel_time, estimated_delivery_time, delivery_status, delivery_time, 
+    pack_amount, tableware_number, tableware_status
+  </sql>
+  <select id="selectByExample" parameterType="com.sky.entity.OrdersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from orders
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sky.entity.OrdersExample">
+    delete from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sky.entity.Orders">
+    insert into orders (id, `number`, `status`, 
+      user_id, address_book_id, order_time, 
+      checkout_time, pay_method, pay_status, 
+      amount, remark, phone, 
+      address, user_name, consignee, 
+      cancel_reason, rejection_reason, cancel_time, 
+      estimated_delivery_time, delivery_status, delivery_time, 
+      pack_amount, tableware_number, tableware_status
+      )
+    values (#{id,jdbcType=BIGINT}, #{number,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{userId,jdbcType=BIGINT}, #{addressBookId,jdbcType=BIGINT}, #{orderTime,jdbcType=TIMESTAMP}, 
+      #{checkoutTime,jdbcType=TIMESTAMP}, #{payMethod,jdbcType=INTEGER}, #{payStatus,jdbcType=TINYINT}, 
+      #{amount,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR}, 
+      #{cancelReason,jdbcType=VARCHAR}, #{rejectionReason,jdbcType=VARCHAR}, #{cancelTime,jdbcType=TIMESTAMP}, 
+      #{estimatedDeliveryTime,jdbcType=TIMESTAMP}, #{deliveryStatus,jdbcType=BIT}, #{deliveryTime,jdbcType=TIMESTAMP}, 
+      #{packAmount,jdbcType=INTEGER}, #{tablewareNumber,jdbcType=INTEGER}, #{tablewareStatus,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sky.entity.Orders">
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="number != null">
+        `number`,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="addressBookId != null">
+        address_book_id,
+      </if>
+      <if test="orderTime != null">
+        order_time,
+      </if>
+      <if test="checkoutTime != null">
+        checkout_time,
+      </if>
+      <if test="payMethod != null">
+        pay_method,
+      </if>
+      <if test="payStatus != null">
+        pay_status,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="consignee != null">
+        consignee,
+      </if>
+      <if test="cancelReason != null">
+        cancel_reason,
+      </if>
+      <if test="rejectionReason != null">
+        rejection_reason,
+      </if>
+      <if test="cancelTime != null">
+        cancel_time,
+      </if>
+      <if test="estimatedDeliveryTime != null">
+        estimated_delivery_time,
+      </if>
+      <if test="deliveryStatus != null">
+        delivery_status,
+      </if>
+      <if test="deliveryTime != null">
+        delivery_time,
+      </if>
+      <if test="packAmount != null">
+        pack_amount,
+      </if>
+      <if test="tablewareNumber != null">
+        tableware_number,
+      </if>
+      <if test="tablewareStatus != null">
+        tableware_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="addressBookId != null">
+        #{addressBookId,jdbcType=BIGINT},
+      </if>
+      <if test="orderTime != null">
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkoutTime != null">
+        #{checkoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payMethod != null">
+        #{payMethod,jdbcType=INTEGER},
+      </if>
+      <if test="payStatus != null">
+        #{payStatus,jdbcType=TINYINT},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null">
+        #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelReason != null">
+        #{cancelReason,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectionReason != null">
+        #{rejectionReason,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelTime != null">
+        #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="estimatedDeliveryTime != null">
+        #{estimatedDeliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryStatus != null">
+        #{deliveryStatus,jdbcType=BIT},
+      </if>
+      <if test="deliveryTime != null">
+        #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="packAmount != null">
+        #{packAmount,jdbcType=INTEGER},
+      </if>
+      <if test="tablewareNumber != null">
+        #{tablewareNumber,jdbcType=INTEGER},
+      </if>
+      <if test="tablewareStatus != null">
+        #{tablewareStatus,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sky.entity.OrdersExample" resultType="java.lang.Long">
+    select count(*) from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update orders
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.number != null">
+        `number` = #{record.number,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.addressBookId != null">
+        address_book_id = #{record.addressBookId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderTime != null">
+        order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.checkoutTime != null">
+        checkout_time = #{record.checkoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payMethod != null">
+        pay_method = #{record.payMethod,jdbcType=INTEGER},
+      </if>
+      <if test="record.payStatus != null">
+        pay_status = #{record.payStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consignee != null">
+        consignee = #{record.consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cancelReason != null">
+        cancel_reason = #{record.cancelReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rejectionReason != null">
+        rejection_reason = #{record.rejectionReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cancelTime != null">
+        cancel_time = #{record.cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.estimatedDeliveryTime != null">
+        estimated_delivery_time = #{record.estimatedDeliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deliveryStatus != null">
+        delivery_status = #{record.deliveryStatus,jdbcType=BIT},
+      </if>
+      <if test="record.deliveryTime != null">
+        delivery_time = #{record.deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.packAmount != null">
+        pack_amount = #{record.packAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.tablewareNumber != null">
+        tableware_number = #{record.tablewareNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.tablewareStatus != null">
+        tableware_status = #{record.tablewareStatus,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update orders
+    set id = #{record.id,jdbcType=BIGINT},
+      `number` = #{record.number,jdbcType=VARCHAR},
+      `status` = #{record.status,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      address_book_id = #{record.addressBookId,jdbcType=BIGINT},
+      order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+      checkout_time = #{record.checkoutTime,jdbcType=TIMESTAMP},
+      pay_method = #{record.payMethod,jdbcType=INTEGER},
+      pay_status = #{record.payStatus,jdbcType=TINYINT},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      consignee = #{record.consignee,jdbcType=VARCHAR},
+      cancel_reason = #{record.cancelReason,jdbcType=VARCHAR},
+      rejection_reason = #{record.rejectionReason,jdbcType=VARCHAR},
+      cancel_time = #{record.cancelTime,jdbcType=TIMESTAMP},
+      estimated_delivery_time = #{record.estimatedDeliveryTime,jdbcType=TIMESTAMP},
+      delivery_status = #{record.deliveryStatus,jdbcType=BIT},
+      delivery_time = #{record.deliveryTime,jdbcType=TIMESTAMP},
+      pack_amount = #{record.packAmount,jdbcType=INTEGER},
+      tableware_number = #{record.tablewareNumber,jdbcType=INTEGER},
+      tableware_status = #{record.tablewareStatus,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sky.entity.Orders">
+    update orders
+    <set>
+      <if test="number != null">
+        `number` = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="addressBookId != null">
+        address_book_id = #{addressBookId,jdbcType=BIGINT},
+      </if>
+      <if test="orderTime != null">
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkoutTime != null">
+        checkout_time = #{checkoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payMethod != null">
+        pay_method = #{payMethod,jdbcType=INTEGER},
+      </if>
+      <if test="payStatus != null">
+        pay_status = #{payStatus,jdbcType=TINYINT},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null">
+        consignee = #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelReason != null">
+        cancel_reason = #{cancelReason,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectionReason != null">
+        rejection_reason = #{rejectionReason,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelTime != null">
+        cancel_time = #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="estimatedDeliveryTime != null">
+        estimated_delivery_time = #{estimatedDeliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryStatus != null">
+        delivery_status = #{deliveryStatus,jdbcType=BIT},
+      </if>
+      <if test="deliveryTime != null">
+        delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="packAmount != null">
+        pack_amount = #{packAmount,jdbcType=INTEGER},
+      </if>
+      <if test="tablewareNumber != null">
+        tableware_number = #{tablewareNumber,jdbcType=INTEGER},
+      </if>
+      <if test="tablewareStatus != null">
+        tableware_status = #{tablewareStatus,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sky.entity.Orders">
+    update orders
+    set `number` = #{number,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=BIGINT},
+      address_book_id = #{addressBookId,jdbcType=BIGINT},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      checkout_time = #{checkoutTime,jdbcType=TIMESTAMP},
+      pay_method = #{payMethod,jdbcType=INTEGER},
+      pay_status = #{payStatus,jdbcType=TINYINT},
+      amount = #{amount,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      consignee = #{consignee,jdbcType=VARCHAR},
+      cancel_reason = #{cancelReason,jdbcType=VARCHAR},
+      rejection_reason = #{rejectionReason,jdbcType=VARCHAR},
+      cancel_time = #{cancelTime,jdbcType=TIMESTAMP},
+      estimated_delivery_time = #{estimatedDeliveryTime,jdbcType=TIMESTAMP},
+      delivery_status = #{deliveryStatus,jdbcType=BIT},
+      delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      pack_amount = #{packAmount,jdbcType=INTEGER},
+      tableware_number = #{tablewareNumber,jdbcType=INTEGER},
+      tableware_status = #{tablewareStatus,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

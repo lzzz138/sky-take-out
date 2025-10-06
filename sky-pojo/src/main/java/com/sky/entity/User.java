@@ -1,42 +1,103 @@
 package com.sky.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.Date;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class User implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+public class User {
     private Long id;
 
-    //微信用户唯一标识
     private String openid;
 
-    //姓名
     private String name;
 
-    //手机号
     private String phone;
 
-    //性别 0 女 1 男
     private String sex;
 
-    //身份证号
     private String idNumber;
 
-    //头像
     private String avatar;
 
-    //注册时间
-    private LocalDateTime createTime;
+    private Date createTime;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", openid=").append(openid);
+        sb.append(", name=").append(name);
+        sb.append(", phone=").append(phone);
+        sb.append(", sex=").append(sex);
+        sb.append(", idNumber=").append(idNumber);
+        sb.append(", avatar=").append(avatar);
+        sb.append(", createTime=").append(createTime);
+        sb.append("]");
+        return sb.toString();
+    }
 }
