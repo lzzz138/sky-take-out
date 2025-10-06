@@ -4,6 +4,7 @@ import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.entity.Employee;
+import com.sky.entity.EmployeeExample;
 import com.sky.exception.AccountLockedException;
 import com.sky.exception.AccountNotFoundException;
 import com.sky.exception.PasswordErrorException;
@@ -11,13 +12,32 @@ import com.sky.mapper.EmployeeMapper;
 import com.sky.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.DigestUtils;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    @Autowired
+    @Resource
     private EmployeeMapper employeeMapper;
+
+
+
+    public Employee selectByLoginName(String UserName){
+        EmployeeExample employeeExample = new EmployeeExample();
+        EmployeeExample.Criteria criteria = employeeExample.createCriteria();
+        criteria.andUsernameEqualTo(UserName);
+        List<Employee> employees = employeeMapper.selectByExample(employeeExample);
+        if(CollectionUtils.isEmpty(employees)){
+            return null;
+        }else {
+            return employees.get(0);
+        }
+
+    }
 
     /**
      * 员工登录
@@ -30,7 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         String password = employeeLoginDTO.getPassword();
 
         //1、根据用户名查询数据库中的数据
-        Employee employee = employeeMapper.getByUsername(username);
+        Employee employee = selectByLoginName(username);
 
         //2、处理各种异常情况（用户名不存在、密码不对、账号被锁定）
         if (employee == null) {

@@ -4,6 +4,7 @@ import com.sky.entity.Employee;
 import com.sky.entity.EmployeeExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.context.annotation.Bean;
 
 public interface EmployeeMapper {
     long countByExample(EmployeeExample example);

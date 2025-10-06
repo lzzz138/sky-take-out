@@ -1,5 +1,7 @@
 package com.sky.entity;
 
+import lombok.Builder;
+
 import java.util.Date;
 
 public class User {
